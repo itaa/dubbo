@@ -68,6 +68,7 @@ public abstract class AbstractProxyProtocol extends AbstractProtocol {
         if (exporter != null) {
             return exporter;
         }
+        // 开始暴露服务 创建一个 runnable 方法
         final Runnable runnable = doExport(proxyFactory.getProxy(invoker, true), invoker.getInterface(), invoker.getUrl());
         exporter = new AbstractExporter<T>(invoker) {
             @Override
@@ -83,6 +84,8 @@ public abstract class AbstractProxyProtocol extends AbstractProtocol {
                 }
             }
         };
+        // 暴露完成以后将exporter和uri, 存到一个ConcurrentHashMap里面
+        // 至于为什么使用ConcurrentHashMap 线程安全
         exporterMap.put(uri, exporter);
         return exporter;
     }

@@ -103,6 +103,7 @@ public class ServiceBean<T> extends ServiceConfig<T> implements InitializingBean
             if (logger.isInfoEnabled()) {
                 logger.info("The service ready on spring started. service: " + getInterface());
             }
+            // 暴露duboo的api
             export();
         }
     }
@@ -263,6 +264,7 @@ public class ServiceBean<T> extends ServiceConfig<T> implements InitializingBean
      */
     @Override
     public void export() {
+        // 去调用父类的export
         super.export();
         // Publish ServiceBeanExportedEvent
         publishExportEvent();

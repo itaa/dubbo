@@ -248,6 +248,7 @@ public class DubboProtocol extends AbstractProtocol {
             }
         }
 
+        // 注册到server 里面使用了netty
         openServer(url);
         optimizeSerialization(url);
         return exporter;
@@ -259,8 +260,10 @@ public class DubboProtocol extends AbstractProtocol {
         //client can export a service which's only for server to invoke
         boolean isServer = url.getParameter(Constants.IS_SERVER_KEY, true);
         if (isServer) {
+            // 获取ExchangeServer
             ExchangeServer server = serverMap.get(key);
             if (server == null) {
+                // 第一次注册的时候 server 是空的，创建 server
                 serverMap.put(key, createServer(url));
             } else {
                 // server supports reset, use together with override
