@@ -226,6 +226,7 @@ public class DubboProtocol extends AbstractProtocol {
 
     @Override
     public <T> Exporter<T> export(Invoker<T> invoker) throws RpcException {
+        // 在注册中心暴露流程中暴露dubbo
         URL url = invoker.getUrl();
 
         // export service.
